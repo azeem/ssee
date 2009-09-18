@@ -1,6 +1,5 @@
+#include <cctype>
 #include "Tokenizer.h"
-
-using namespace std;
 
 TokenType Tokenizer::tokenize() {
 // Reads Character from stream, identifies token and returns a TokenType value
@@ -37,14 +36,14 @@ TokenType Tokenizer::tokenize() {
     	while(true) {
     		token_val.push_back(c);
     		c = stream.get();
-    		if(!stream.good())
+			if(!stream.good())
 				break;
 			else if(!is_normal_char(c)) {
 				stream.unget();
 				break;
 			}
-    	}
-    	if(check_int())
+		}
+		if(check_int())
 			return INTEGER;
 		else
 			return SYMBOL;
@@ -64,7 +63,7 @@ bool Tokenizer::check_int() {
 
 bool Tokenizer::is_normal_char(int c) {
 // Returns true if c is character that has no special meaning
-	if((isalnum(c) || ispunct(c)) && c != '(' && c != ')' && c != '"')
+	if((std::isalnum(c) || std::ispunct(c)) && c != '(' && c != ')' && c != '"')
 		return true;
 	else
 		return false;

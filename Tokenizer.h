@@ -2,8 +2,7 @@
 #define TOKENIZER_H
 
 #include <istream>
-#include <string>
-#include <gc_cpp.h>
+#include "Common.h"
 
 enum TokenType {
 	BRACKET_OPEN,
@@ -16,18 +15,19 @@ enum TokenType {
 };
 
 class Tokenizer : public gc {
+// Tokenizer identifies tokens from any stream input
 	public:
 		Tokenizer(std::istream&);
 		TokenType tokenize();
-		std::string token_value();
+		string token_value();
 	private:
 		bool check_int();
 		bool is_normal_char(int);
 		std::istream& stream;
-		std::string token_val;
+		string token_val;
 };
 
 
 inline Tokenizer::Tokenizer(std::istream &str) : stream(str) {token_val = "";}
-inline std::string Tokenizer::token_value() {return token_val;}
+inline string Tokenizer::token_value() {return token_val;}
 #endif
