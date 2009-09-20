@@ -20,6 +20,10 @@ Symbol::Symbol(string srep) {
 	str_rep = srep;
 }
 
+bool Symbol::operator< (Symbol &sym) {
+	return str_rep < sym.str_rep;
+}
+
 string Symbol::str() {
 	return str_rep;
 }

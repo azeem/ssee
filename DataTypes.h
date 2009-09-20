@@ -41,6 +41,7 @@ class Symbol : public BaseObject {
 	public:
 		Symbol(string);
 		string str();
+		bool operator< (Symbol&);
 };
 
 class String : public BaseObject {

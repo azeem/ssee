@@ -10,4 +10,6 @@
 typedef std::basic_string<char, std::char_traits<char>, gc_allocator<char> > string;
 typedef std::basic_stringstream<char, std::char_traits<char>, gc_allocator<char> > stringstream;
 
+class BaseException : public std::exception {};
+
 #endif
