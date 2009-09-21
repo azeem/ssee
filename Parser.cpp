@@ -4,6 +4,7 @@
 #include "Parser.h"
 #include "Tokenizer.h"
 #include "DataTypes.h"
+#include "Expression.h"
 
 Parser::Parser(std::istream &stream) {
 	tokenizer = new Tokenizer(stream);
@@ -43,7 +44,7 @@ Cons *Parser::tokens_to_list() {
 				break;
 			}
 			case INTEGER: {
-				Integer *intgr = new Integer(atol(tokenizer->token_value().c_str()));
+				Integer *intgr = new Integer(std::atol(tokenizer->token_value().c_str()));
 				mystack.push(intgr);
 				break;
 			}
@@ -54,12 +55,10 @@ Cons *Parser::tokens_to_list() {
 			}
 			case END:
 				if(mystack.size() != 0)
-					return NULL;
+					throw UnexpectedEnd();
 				else
-					return new Cons();
+					return NULL;
 				break;
-			case ERROR:
-				return NULL;
 		}
 	}
 	return (Cons *)mystack.top();

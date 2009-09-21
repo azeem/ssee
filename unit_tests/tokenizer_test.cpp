@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Common.h"
+#include <sstream>
 #include "Tokenizer.h"
 
 int main() {
@@ -13,8 +13,6 @@ int main() {
     		case STRING :std::cout << "String (\"" << t.token_value() << "\")" << std::endl; break;
     		case INTEGER:std::cout << "Integer (\"" << t.token_value() << "\")" << std::endl; break;
     		case SYMBOL :std::cout << "Symbol (\"" << t.token_value() << "\")" << std::endl; break;
-    		case ERROR  :std::cout << "Error!!" << std::endl;
-			case END    :break;
     	}
     }
     return 0;

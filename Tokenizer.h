@@ -10,7 +10,6 @@ enum TokenType {
 	STRING,
 	INTEGER,
 	SYMBOL,
-	ERROR,
 	END
 };
 
@@ -30,4 +29,7 @@ class Tokenizer : public gc {
 
 inline Tokenizer::Tokenizer(std::istream &str) : stream(str) {token_val = "";}
 inline string Tokenizer::token_value() {return token_val;}
+
+class UnknownTokenType : public BaseException {};
+class UnterminatedString : public BaseException {};
 #endif

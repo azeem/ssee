@@ -3,8 +3,7 @@
 
 TokenType Tokenizer::tokenize() {
 // Reads Character from stream, identifies token and returns a TokenType value
-// END and ERROR TokenTypes indicate end of stream and erroneous condition
-// respectively
+// throws UnknownTokenType and UnterminatedString exceptions.
 	int c;
 
 	token_val = "";
@@ -30,7 +29,7 @@ TokenType Tokenizer::tokenize() {
 		if(c == '"')
 			return STRING;
 		else
-			return ERROR; // Unexpected end of string
+			throw UnterminatedString();
     }
     else if (is_normal_char(c)) {
     	while(true) {
@@ -49,7 +48,7 @@ TokenType Tokenizer::tokenize() {
 			return SYMBOL;
 	}
 	else
-		return ERROR;
+		throw UnknownTokenType();
 }
 
 bool Tokenizer::check_int() {
