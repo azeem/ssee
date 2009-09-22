@@ -13,3 +13,29 @@ BaseObject *AtomicExpr::eval(Environment* env) {
 	else
 		return object;
 }
+
+AssignExpr::AssignExpr(Symbol *lh, Expression *rh) {
+	lhs = lh;
+	rhs = rh;
+}
+
+BaseObject *AssignExpr::eval(Environment *env) {
+	BaseObject *val;
+	val = rhs->eval(env);
+	env->set_value(lhs, val);
+	return val;
+}
+
+IfElseExpr::IfElseExpr(Expression *cond, Expression *if_exp, Expression *else_exp) {
+	condition = cond;
+	if_expr = if_exp;
+	else_expr = else_exp;
+}
+
+BaseObject *IfElseExpr::eval(Environment *env) {
+	BaseObject *res = condition->eval(env);
+	if(typeid(*res) == typeid(Boolean) && *((Boolean *)res) == false)
+		return else_expr->eval(env);
+	else
+		return if_expr->eval(env);
+}

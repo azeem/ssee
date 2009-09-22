@@ -1,4 +1,6 @@
 #include <istream>
+#include <iostream>
+#include <typeinfo>
 #include <stack>
 #include <cstdlib>
 #include "Parser.h"
@@ -62,4 +64,39 @@ Cons *Parser::tokens_to_list() {
 		}
 	}
 	return (Cons *)mystack.top();
+}
+
+Expression *Parser::parse_to_expression(BaseObject *obj) {
+	if(typeid(*obj) != typeid(Cons))
+		return new AtomicExpr(obj);
+
+	Cons *expr = (Cons *)obj;
+	if(typeid(*expr->car()) == typeid(Symbol)) {
+		Symbol *first_sym = (Symbol *)expr->car();
+		expr = (Cons *)expr->cdr();
+		if(*first_sym == "=") {
+			if(expr->list_length() != 2 && typeid(*expr->car()) != typeid(Symbol))
+				throw SyntaxError();
+			else {
+				Symbol *lhs = (Symbol *)expr->car();
+				expr = (Cons *)expr->cdr();
+				Expression *rhs = parse_to_expression(expr->car());
+				return (new AssignExpr(lhs, rhs));
+			}
+		}
+		else if(*first_sym == "if") {
+			if(expr->list_length() != 3)
+				throw SyntaxError();
+			else {
+				Expression *condition = parse_to_expression(expr->car());
+				expr = (Cons *)expr->cdr();
+				Expression *if_expr = parse_to_expression(expr->car());
+				expr = (Cons *)expr->cdr();
+				Expression *else_expr = parse_to_expression(expr->car());
+				return (new IfElseExpr(condition, if_expr, else_expr));
+			}
+		}
+	}
+
+	return (new AtomicExpr(obj));
 }

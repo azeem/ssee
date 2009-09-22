@@ -19,4 +19,5 @@ class Parser : public gc {
 
 class UnexpectedEnd : public BaseException {};
 class UnknownToken : public BaseException {};
+class SyntaxError : public BaseException {};
 #endif

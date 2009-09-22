@@ -29,6 +29,7 @@ class Cons : public BaseObject {
 		string str();
 		BaseObject *car();
 		BaseObject *cdr();
+		unsigned long list_length();
 };
 
 inline BaseObject *Cons::car() {return first;}  // Returns the first element
@@ -42,6 +43,7 @@ class Symbol : public BaseObject {
 		Symbol(string);
 		string str();
 		bool operator< (Symbol&);
+		bool operator== (const char *);
 };
 
 class String : public BaseObject {
@@ -60,5 +62,15 @@ class Integer : public BaseObject {
 	public:
 		Integer(long);
 		string str();
+};
+
+class Boolean : public BaseObject {
+	private:
+		bool truth_val;
+	public:
+		Boolean(bool);
+		string str();
+		bool truth();
+		bool operator== (bool);
 };
 #endif
