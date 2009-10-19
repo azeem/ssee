@@ -7,13 +7,8 @@ Cons::Cons() {
 	second = new None();
 }
 
-Cons::Cons(BaseObject *f, BaseObject *s) {
-	first = f;
-	second = s;
-}
-
 string Cons::str() {
-	return ("(" + first->str() + ", " + second->str() + ")");
+	return ("(" + first->str() + " " + second->str() + ")");
 }
 
 unsigned long Cons::list_length() {
@@ -30,10 +25,6 @@ unsigned long Cons::list_length() {
 	return count;
 }
 
-Symbol::Symbol(string srep) {
-	str_rep = srep;
-}
-
 bool Symbol::operator< (Symbol &sym) {
 	return str_rep < sym.str_rep;
 }
@@ -42,21 +33,8 @@ bool Symbol::operator== (const char *str) {
 	return (str_rep == str);
 }
 
-string Symbol::str() {
-	return str_rep;
-}
-
-
-String::String(string val) {
-	str_val = val;
-}
-
 string String::str() {
 	return ("\"" + str_val + "\"");
-}
-
-Integer::Integer(long val) {
-	int_val = val;
 }
 
 string Integer::str() {
@@ -65,19 +43,11 @@ string Integer::str() {
 	return ss.str();
 }
 
-Boolean::Boolean(bool tval) {
-	truth_val = tval;
-}
-
 string Boolean::str() {
 	if(truth_val)
 		return "True";
 	else
 		return "False";
-}
-
-bool Boolean::truth() {
-	return truth_val;
 }
 
 bool Boolean::operator== (bool val) {

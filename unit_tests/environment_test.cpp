@@ -28,7 +28,7 @@ int main() {
 				std::cout << ids[i]->str() << " = " << env[j]->get_value(ids[i])->str() << std::endl;
 			}
 			catch(UndefinedIdentifier &e) {
-				std::cout << "Reference to undefined identifier : " << e.identifier->str() << std::endl;
+				std::cout << "Reference to undefined identifier : " << e.get_identifier()->str() << std::endl;
 			}
 		}
 	}

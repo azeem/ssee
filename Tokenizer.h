@@ -13,8 +13,8 @@ enum TokenType {
 	END
 };
 
+//! Tokenizer identifies tokens from any stream input
 class Tokenizer : public gc {
-// Tokenizer identifies tokens from any stream input
 	public:
 		Tokenizer(std::istream&);
 		TokenType tokenize();

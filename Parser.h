@@ -7,17 +7,21 @@
 #include "Tokenizer.h"
 #include "Expression.h"
 
+//! Parser class is used parse input from a stream into expression objects
 class Parser : public gc {
-// Parser parses input from a stream into expression objects
 	public:
 		Parser(std::istream&);
 		Cons *tokens_to_list();
-		Expression *parse_to_expression(BaseObject *);
+		Expression **parse_to_expression_list(Cons*, int&);
+		Expression *parse_to_expression(BaseObject*);
+		Expression **parse_till_end(int &count);
+		Expression *parse();
 	private:
 		Tokenizer *tokenizer;
 };
 
 class UnexpectedEnd : public BaseException {};
 class UnknownToken : public BaseException {};
+class UnmatchedParanthesis : public BaseException {};
 class SyntaxError : public BaseException {};
 #endif

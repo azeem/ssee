@@ -14,8 +14,8 @@ inline bool SymbolCompare::operator() (Symbol* const& lhs, Symbol* const& rhs) {
 // SymbolMap is a std::map that maps Symbol* to BaseObject*
 typedef std::map<Symbol*, BaseObject*, SymbolCompare, gc_allocator<std::pair<Symbol*, BaseObject*> > > SymbolMap;
 
+//! Environment maps identifiers to data objects
 class Environment : public gc {
-// Environment maps identifiers to data objects
 	public:
 		Environment();
 		Environment(Environment*);
@@ -25,19 +25,18 @@ class Environment : public gc {
 		Environment *parent;
 		SymbolMap sym_map;
 };
-
 inline Environment::Environment() {parent = NULL;}
 inline Environment::Environment(Environment *par) {parent = par;}
 
+//! UndefinedIdentifier Exception thrown when search for identifier
+//! in an Environment and all of its parents fails
 class UndefinedIdentifier : public BaseException {
-// UndefinedIdentifier Exception thrown when search for identifier
-// in an Environment and all of its parents fails
-	public:
+	private:
 		Symbol *identifier;
-		UndefinedIdentifier(Symbol*);
-		const char *what();
+	public:
+		UndefinedIdentifier(Symbol *identifier) : identifier(identifier) {}
+		Symbol *get_identifier();
 };
+inline Symbol *UndefinedIdentifier::get_identifier() {return identifier;}
 
-inline UndefinedIdentifier::UndefinedIdentifier(Symbol *id) {identifier = id;}
-inline const char *what() {return "UndefinedIdentifier";}
 #endif

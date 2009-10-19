@@ -1,6 +1,7 @@
 #include <typeinfo>
 #include "Expression.h"
 #include "DataTypes.h"
+#include "Functions.h"
 
 AtomicExpr::AtomicExpr(BaseObject *obj, bool map_sym) {
 	object = obj;
@@ -38,4 +39,18 @@ BaseObject *IfElseExpr::eval(Environment *env) {
 		return else_expr->eval(env);
 	else
 		return if_expr->eval(env);
+}
+
+BaseObject *LambdaExpr::eval(Environment *env) {
+	return (new NonPrimitive(this, env));
+}
+
+BaseObject *CallExpr::eval(Environment *env) {
+	BaseObject *params[expr_count];
+	params[0] = expr_list[0]->eval(env);
+	if(!params[0]->is_callable())
+		throw ObjectNotCallable();
+	for(int i = 1;i < expr_count;i++)
+		params[i] = expr_list[i]->eval(env);
+	return (((Function *)params[0])->apply(&params[1], expr_count-1));
 }

@@ -17,5 +17,10 @@ int main() {
 	res = par.tokens_to_list();
 	expr = par.parse_to_expression(res);
 	std::cout << expr->eval(env)->str() << std::endl;
+
+	stream.str("(quote ())");
+	res = par.tokens_to_list();
+	expr = par.parse_to_expression(res);
+	std::cout << expr->eval(env)->str() << std::endl;
 	return 0;
 }
