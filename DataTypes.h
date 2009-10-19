@@ -12,11 +12,13 @@ class CannotConvertToInt: public BaseException {};
 class BaseObject : public gc {
 	public:
 		virtual string str() = 0;
+		virtual string rep();
 		virtual bool is_callable();
 		virtual long to_int();
 };
 inline bool BaseObject::is_callable() {return false;}
 inline long BaseObject::to_int() {throw CannotConvertToInt();}
+inline string BaseObject::rep() {return str();}
 
 //! None object specifies null or void values
 class None : public BaseObject {
@@ -62,8 +64,10 @@ class String : public BaseObject {
 		String(string str_val) : str_val(str_val) {}
 		string get_string();
 		string str();
+		string rep();
 };
 inline string String::get_string() {return str_val;}
+inline string String::rep() {return str_val;}
 
 //! Integer Represents a signed long integer
 class Integer : public BaseObject {

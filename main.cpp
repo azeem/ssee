@@ -14,6 +14,7 @@ Environment *init_env() {
 	env->set_value(new Symbol("car"), new ConsCar(env));
 	env->set_value(new Symbol("cdr"), new ConsCdr(env));
 	env->set_value(new Symbol("load"), new LoadFile(env));
+	env->set_value(new Symbol("print"), new PrintLine(env));
 	env->set_value(new Symbol("exit"), new ExitRepl(env));
 	env->set_value(new Symbol("true"), new Boolean(true));
 	env->set_value(new Symbol("false"), new Boolean(false));
@@ -22,7 +23,9 @@ Environment *init_env() {
 }
 
 int main() {
+	//stringstream str("(load \"test.se\")");
 	Parser par(std::cin);
+	//Parser par(str);
 	Expression *expr;
 	BaseObject *res;
 	Environment *env = init_env();

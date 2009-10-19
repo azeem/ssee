@@ -37,7 +37,10 @@ Cons *Parser::tokens_to_list() {
 					else
 						pair = new Cons(obj, pair);
 				}
-				mystack.push(pair);
+				if(!pair)
+					mystack.push(new None());
+				else
+					mystack.push(pair);
 				break;
 			}
 			case STRING: {
@@ -69,12 +72,10 @@ Cons *Parser::tokens_to_list() {
 }
 
 Expression **Parser::parse_to_expression_list(Cons *list, int &count) {
-	Expression **expr_list = new (GC) Expression*[list->list_length()];
-	count = 0;
-	while(true) {
-		expr_list[count++] = parse_to_expression(list->car());
-		if(typeid(*list->cdr()) == typeid(None))
-			break;
+	count = list->list_length();
+	Expression **expr_list = new (GC) Expression*[count];
+	for(int i = 0;i < count;i++) {
+		expr_list[i] = parse_to_expression(list->car());
 		list = (Cons *)list->cdr();
 	}
 	return expr_list;
