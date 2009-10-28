@@ -17,7 +17,7 @@ Cons *Parser::tokens_to_list() {
 	TokenType token_type;
 
 	while(true) {
-		token_type = tokenizer->tokenize();
+		while(token_type = tokenizer->tokenize(), token_type == COMMENT);
 		switch(token_type) {
 			case BRACKET_OPEN:
 				mystack.push(NULL);
@@ -147,7 +147,7 @@ Expression *Parser::parse_to_expression(BaseObject *obj) {
 		}
 	}
 
-	expr = (Cons *)obj;
+//	expr = (Cons *)obj;
 	int expr_count;
 	Expression **expr_list = parse_to_expression_list(expr, expr_count);
 	return (new CallExpr(expr_list, expr_count));

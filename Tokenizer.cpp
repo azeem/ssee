@@ -11,6 +11,10 @@ TokenType Tokenizer::tokenize() {
 
 	if(stream.eof())
 		return END;
+	else if (c == ';') {
+		while(c = stream.get(), stream.good() && c != '\n');
+		return COMMENT;
+	}
 	else if (c == '(')
 		return BRACKET_OPEN;
 	else if (c == ')')

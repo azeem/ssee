@@ -11,8 +11,10 @@ Environment *init_env() {
 	env->set_value(new Symbol("-"), new IntSub(env));
 	env->set_value(new Symbol("*"), new IntMul(env));
 	env->set_value(new Symbol("=="), new IntEq(env));
+	env->set_value(new Symbol("cons"), new ConsCreate(env));
 	env->set_value(new Symbol("car"), new ConsCar(env));
 	env->set_value(new Symbol("cdr"), new ConsCdr(env));
+	env->set_value(new Symbol("none?"), new IsNone(env));
 	env->set_value(new Symbol("load"), new LoadFile(env));
 	env->set_value(new Symbol("print"), new PrintLine(env));
 	env->set_value(new Symbol("exit"), new ExitRepl(env));
@@ -38,12 +40,12 @@ int main() {
 	while(true) {
 		std::cout << "> ";
 		try {
-			expr = par.parse();
+			expr = par.parse(); // Read
 			if(!expr)
 				break;
-			res = expr->eval(env);
+			res = expr->eval(env); // Eval
 			if(typeid(*res) != typeid(None))
-				std::cout << res->str() << std::endl;
+				std::cout << res->str() << std::endl; // Print
 		}
 		catch(ParamCountMismatch &e) {
 			std::cout << "Error: Function expects " 

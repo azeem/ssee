@@ -5,6 +5,7 @@
 #include "Common.h"
 
 enum TokenType {
+	COMMENT,
 	BRACKET_OPEN,
 	BRACKET_CLOSE,
 	STRING,
