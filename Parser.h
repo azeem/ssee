@@ -11,6 +11,7 @@
 class Parser : public gc {
 	public:
 		Parser(std::istream&);
+		Parser() : tokenizer(NULL) {}
 		Cons *tokens_to_list();
 		Expression **parse_to_expression_list(Cons*, int&);
 		Expression *parse_to_expression(BaseObject*);
@@ -21,7 +22,7 @@ class Parser : public gc {
 };
 
 class UnexpectedEnd : public BaseException {};
-class UnknownToken : public BaseException {};
+//class UnknownToken : public BaseException {};
 class UnmatchedParanthesis : public BaseException {};
 class SyntaxError : public BaseException {};
 #endif

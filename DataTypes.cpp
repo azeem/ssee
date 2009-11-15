@@ -8,7 +8,23 @@ Cons::Cons() {
 }
 
 string Cons::str() {
-	return ("(" + first->str() + " " + second->str() + ")");
+	Cons *list = this;
+	string val = "(";
+	while(true) {
+		if(list != this)
+			val += " ";
+		val += list->first->str();
+		if(typeid(*(list->second)) == typeid(None))
+			break;
+		else if(typeid(*(list->second)) == typeid(Cons))
+			list = (Cons *)list->second;
+		else {
+			val += " . " + list->second->str();
+			break;
+		}
+	}
+	val += ")";
+	return val;
 }
 
 unsigned long Cons::list_length() {

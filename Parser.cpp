@@ -13,6 +13,9 @@ Parser::Parser(std::istream &stream) {
 }
 
 Cons *Parser::tokens_to_list() {
+	if(tokenizer == NULL)
+		return NULL;
+
 	std::stack<BaseObject *> mystack;
 	TokenType token_type;
 
@@ -112,7 +115,7 @@ Expression *Parser::parse_to_expression(BaseObject *obj) {
 				return (new IfElseExpr(condition, if_expr, else_expr));
 			}
 		}
-		else if(*first_sym == "quote") {
+		else if(*first_sym == "'") {
 			if(expr->list_length() != 2)
 				throw SyntaxError();
 			else {

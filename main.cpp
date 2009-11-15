@@ -12,10 +12,12 @@ Environment *init_env() {
 	env->set_value(new Symbol("*"), new IntMul(env));
 	env->set_value(new Symbol("=="), new IntEq(env));
 	env->set_value(new Symbol("cons"), new ConsCreate(env));
+	env->set_value(new Symbol("list"), new ListCreate(env));
 	env->set_value(new Symbol("car"), new ConsCar(env));
 	env->set_value(new Symbol("cdr"), new ConsCdr(env));
 	env->set_value(new Symbol("none?"), new IsNone(env));
 	env->set_value(new Symbol("load"), new LoadFile(env));
+	env->set_value(new Symbol("eval"), new Eval(env));
 	env->set_value(new Symbol("print"), new PrintLine(env));
 	env->set_value(new Symbol("exit"), new ExitRepl(env));
 	env->set_value(new Symbol("true"), new Boolean(true));
@@ -25,9 +27,7 @@ Environment *init_env() {
 }
 
 int main() {
-	//stringstream str("(load \"test.se\")");
 	Parser par(std::cin);
-	//Parser par(str);
 	Expression *expr;
 	BaseObject *res;
 	Environment *env = init_env();
