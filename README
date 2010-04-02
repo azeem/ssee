@@ -1,0 +1,10 @@
+Simple Symbolic Expression Evaluator
+------------------------------------
+
+SSEE is a simple LISP interpreter written in C++.
+It supports 6 different basic data types viz. Integer,
+String, Boolean, None, Symbol and a composite data type, Cons.
+SSEE also supports first-class functions ie. It treats
+functions as first-class objects allowing them to be passed
+as parameters, returned from another function or assigned to variables.
+The current implementation supports 13 different builtin functions.
